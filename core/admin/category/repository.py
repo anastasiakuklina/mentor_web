@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core.admin.category.dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilters
+from .dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilters
 
 
 class ICategoryRepository(ABC):

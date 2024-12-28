@@ -7,11 +7,13 @@ class TagCreateDTO(BaseModel):
 
 
 class TagDTO(BaseModel):
+    id: int
     slug: str
     name: str
 
 
 class TagUpdateDTO(BaseModel):
+    id: int
     slug: str | None = None
     name: str | None = None
 

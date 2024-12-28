@@ -12,8 +12,8 @@ class ArticleService:
     def get_article(self, slug: str) -> ArticleDetailDTO:
         return self.article_repo.get_article(slug)
 
-    def find(self, text: str) -> list[ArticleListItemDTO]:
-        return self.article_repo.find(text)
+    def find_articles(self, search_query: str) -> list[ArticleListItemDTO]:
+        return self.article_repo.find_articles(search_query)
 
     def add_views(self, slug: str, num_views: int) -> None:
         self.article_repo.add_views(slug, num_views)

@@ -1,5 +1,5 @@
-from core.admin.category.dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilters
-from core.admin.category.repository import ICategoryRepository
+from .dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilters
+from .repository import ICategoryRepository
 
 
 class CategoryService:

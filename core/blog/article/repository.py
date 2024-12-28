@@ -14,7 +14,7 @@ class IPublishedArticleRepository(ABC):
         pass
 
     @abstractmethod
-    def find(self, text: str) -> list[ArticleListItemDTO]:
+    def find_articles(self, search_query: str) -> list[ArticleListItemDTO]:
         pass
 
     @abstractmethod

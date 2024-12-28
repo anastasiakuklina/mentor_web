@@ -7,11 +7,13 @@ class CategoryCreateDTO(BaseModel):
 
 
 class CategoryDTO(BaseModel):
+    id: int
     slug: str
     name: str
 
 
 class CategoryUpdateDTO(BaseModel):
+    id: int
     slug: str | None = None
     name: str | None = None
 
