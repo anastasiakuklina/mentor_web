@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 
-from .dto import ArticleCreateDTO, ArticleListItemDTO, ArticleDetailDTO, ArticleUpdateDTO, AdminArticleFilter, \
-    PaginatedArticlesDTO
-from ...dto import PaginationDTO
+from .dto import (ArticleCreateDTO, ArticleDetailDTO, ArticleUpdateDTO, PaginatedArticlesDTO, ArticlesGetDTO,
+                  ArticlesFindDTO)
 
 
 class IArticleRepository(ABC):
@@ -12,8 +11,7 @@ class IArticleRepository(ABC):
         pass
 
     @abstractmethod
-    def get_articles(self, pagination_dto: PaginationDTO,
-                     admin_filters: AdminArticleFilter | None = None) -> PaginatedArticlesDTO:
+    def get_articles(self, dto: ArticlesGetDTO) -> PaginatedArticlesDTO:
         pass
 
     @abstractmethod
@@ -25,7 +23,7 @@ class IArticleRepository(ABC):
         pass
 
     @abstractmethod
-    def find_articles(self, pagination_dto: PaginationDTO, search_query: str) -> PaginatedArticlesDTO:
+    def find_articles(self, dto: ArticlesFindDTO) -> PaginatedArticlesDTO:
         pass
 
     @abstractmethod
