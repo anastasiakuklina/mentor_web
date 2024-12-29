@@ -1,5 +1,4 @@
-from ..dto import ArticleCreateDTO, ArticleUpdateDTO
+from core.file.protocol import FileServiceProtocol
 
-
-def save_text_files(dto: ArticleCreateDTO | ArticleUpdateDTO) -> str:
+def upload_and_replace_paths(file_service: FileServiceProtocol, text: str, text_images: dict[str, bytes]) -> str:
     pass

@@ -1,5 +1,3 @@
-
-
 class ArticleNotFoundError(Exception):
     def __init__(self):
         super().__init__(f"Article does not exist.")

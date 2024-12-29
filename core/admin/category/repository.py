@@ -4,7 +4,6 @@ from .dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilt
 
 
 class ICategoryRepository(ABC):
-
     @abstractmethod
     def create_category(self, dto: CategoryCreateDTO):
         pass

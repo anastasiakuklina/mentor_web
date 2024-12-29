@@ -3,7 +3,6 @@ from .repository import ICategoryRepository
 
 
 class CategoryService:
-
     def __init__(self, category_repo: ICategoryRepository):
         self.category_repo = category_repo
 

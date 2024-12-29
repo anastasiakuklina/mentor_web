@@ -4,7 +4,6 @@ from .dto import TagCreateDTO, TagDTO, TagUpdateDTO, TagFilters
 
 
 class ITagRepository(ABC):
-
     @abstractmethod
     def create_tag(self, dto: TagCreateDTO):
         pass

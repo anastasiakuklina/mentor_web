@@ -3,7 +3,6 @@ from .repository import ITagRepository
 
 
 class TagService:
-
     def __init__(self, tag_repo: ITagRepository):
         self.tag_repo = tag_repo
 
