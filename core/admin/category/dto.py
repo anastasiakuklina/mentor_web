@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+from core.dto import PaginationDTO, SortingDTO
 
 
 class CategoryCreateDTO(BaseModel):
@@ -24,3 +26,23 @@ class CategoryUpdateDTO(BaseModel):
 
 class CategoryFilters(BaseModel):
     name: str | None = None
+
+
+class PaginatedCategoriesDTO(BaseModel):
+    categories: list[CategoryDTO]
+    count: int
+
+class CategorySortingDTO(SortingDTO):
+    valid_fields: list[str] = Field(("id", "name", "slug", "created_at"))
+
+
+class CategoriesGetDTO(BaseModel):
+    pagination: PaginationDTO
+    sorting: CategorySortingDTO
+
+
+class CategoriesFindDTO(BaseModel):
+    pagination: PaginationDTO
+    sorting: CategorySortingDTO
+    search_query: str
+

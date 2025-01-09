@@ -1,15 +1,14 @@
-from sqlalchemy import select, update
+from sqlalchemy import select, update, or_
 from sqlalchemy.orm import sessionmaker
 
-from core.admin.category.dto import CategoryCreateDTO, CategoryFilters, CategoryDTO, CategoryUpdateDTO
+from core.admin.category.dto import CategoryCreateDTO, CategoryFilters, CategoryDTO, CategoryUpdateDTO, \
+    CategoriesGetDTO, PaginatedCategoriesDTO, CategoriesFindDTO
 from core.admin.category.repository import IAdminCategoryRepository
+from repositories.base_repository import BaseRepository
 from repositories.models.category import Category
 
 
-class AdminCategoryRepository(IAdminCategoryRepository):
-
-    def __init__(self, session_factory: sessionmaker):
-        self.session_factory = session_factory
+class AdminCategoryRepository(BaseRepository, IAdminCategoryRepository):
 
     def create_category(self, dto: CategoryCreateDTO) -> int:
         with self.session_factory() as session:
@@ -19,12 +18,13 @@ class AdminCategoryRepository(IAdminCategoryRepository):
             session.refresh(category)
             return category.id
 
-    def get_categories(self, dto: CategoryFilters | None = None) -> list[CategoryDTO]:
+    def get_categories(self, dto: CategoriesGetDTO) -> PaginatedCategoriesDTO:
         with self.session_factory() as session:
             stmt = select(Category)
-            result_orm = session.execute(stmt).scalars().all()
+            stmt = self.add_order_by(stmt=stmt, sorting_dto=dto.sorting)
+            result_orm, count = self.paginate(stmt, dto.pagination)
             result = [CategoryDTO.model_validate(row, from_attributes=True) for row in result_orm]
-            return result
+            return PaginatedCategoriesDTO(count=count, categories=result)
 
 
     def update_category(self, dto: CategoryUpdateDTO):
@@ -32,3 +32,12 @@ class AdminCategoryRepository(IAdminCategoryRepository):
             stmt = update(Category).where(Category.id == dto.id).values(**dto.model_dump(exclude_unset=True))
             session.execute(stmt)
             session.commit()
+
+
+    def find_categories(self, dto: CategoriesFindDTO) -> PaginatedCategoriesDTO:
+        stmt = select(Category).where(or_(Category.name.icontains(dto.search_query),
+                                          Category.slug.icontains(dto.search_query)))
+        stmt = self.add_order_by(stmt=stmt, sorting_dto=dto.sorting)
+        result_orm, count = self.paginate(stmt, dto.pagination)
+        result = [CategoryDTO.model_validate(row, from_attributes=True) for row in result_orm]
+        return PaginatedCategoriesDTO(count=count, categories=result)
