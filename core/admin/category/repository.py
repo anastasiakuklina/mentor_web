@@ -3,9 +3,9 @@ from abc import ABC, abstractmethod
 from .dto import CategoryCreateDTO, CategoryDTO, CategoryUpdateDTO, CategoryFilters
 
 
-class ICategoryRepository(ABC):
+class IAdminCategoryRepository(ABC):
     @abstractmethod
-    def create_category(self, dto: CategoryCreateDTO):
+    def create_category(self, dto: CategoryCreateDTO) -> int:
         pass
 
     @abstractmethod

@@ -1,3 +1,3 @@
-__all__ = ["TagDTO"]
+__all__ = ["TagListItemDTO, TagDetailDTO"]
 
-from .dto import TagDTO
+from .dto import TagListItemDTO, TagDetailDTO

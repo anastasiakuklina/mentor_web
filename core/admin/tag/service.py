@@ -1,9 +1,9 @@
 from .dto import TagCreateDTO, TagDTO, TagUpdateDTO, TagFilters
-from .repository import ITagRepository
+from .repository import IAdminTagRepository
 
 
 class TagService:
-    def __init__(self, tag_repo: ITagRepository):
+    def __init__(self, tag_repo: IAdminTagRepository):
         self.tag_repo = tag_repo
 
     def create_tag(self, dto: TagCreateDTO):

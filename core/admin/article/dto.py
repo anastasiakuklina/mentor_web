@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, AfterValidator
 
-from core.admin import CategoryDTO, TagDTO
+from core.admin import CategoryDTO, TagListItemDTO
 from core.dto import PaginationDTO, SortingDTO
 
 
@@ -49,7 +49,7 @@ class ArticleListItemDTO(BaseModel):
     title: str
     slug: str
     category: CategoryDTO
-    tags: list[TagDTO]
+    tags: list[TagListItemDTO]
     publish_at: datetime
     created_at: datetime
     is_draft: bool
@@ -110,7 +110,7 @@ class ArticleDetailDTO(BaseModel):
     slug: Annotated[str, AfterValidator(is_slug)]
     text: str
     category: CategoryDTO
-    tags: list[TagDTO]
+    tags: list[TagListItemDTO]
     author_id: UUID
     publish_at: datetime
     created_at: datetime

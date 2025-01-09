@@ -1,17 +1,25 @@
 from abc import ABC, abstractmethod
 
-from .dto import TagCreateDTO, TagDTO, TagUpdateDTO, TagFilters
+from .dto import TagCreateRepoDTO, TagUpdateRepoDTO, TagListItemDTO, TagDetailDTO, TagsFindDTO, TagsGetDTO
 
 
-class ITagRepository(ABC):
+class IAdminTagRepository(ABC):
     @abstractmethod
-    def create_tag(self, dto: TagCreateDTO):
+    def create_tag(self, dto: TagCreateRepoDTO) -> int:
         pass
 
     @abstractmethod
-    def get_tags(self, dto: TagFilters) -> list[TagDTO]:
+    def get_tags(self, dto: TagsGetDTO) -> list[TagListItemDTO]:
         pass
 
     @abstractmethod
-    def update_tag(self, dto: TagUpdateDTO):
+    def get_tag(self, tag_id: int) -> TagDetailDTO:
+        pass
+
+    @abstractmethod
+    def update_tag(self, dto: TagUpdateRepoDTO):
+        pass
+
+    @abstractmethod
+    def find_tags(self, dto: TagsFindDTO) -> list[TagListItemDTO]:
         pass
