@@ -1,23 +1,22 @@
 
 from typing import Any, Sequence
 
-from sqlalchemy import Select, select, func, Result, Row, RowMapping, desc, asc
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Select, select, func, desc, asc
+from sqlalchemy.orm import Session
 
 from core.dto import PaginationDTO, SortingDTO
 
 
 class BaseRepository:
 
-    def __init__(self, session_factory: sessionmaker):
-        self.session_factory = session_factory
+    def __init__(self, session: Session):
+        self.session = session
 
     def paginate(self, stmt: Select, pagination_dto: PaginationDTO) -> tuple[Sequence, Any]:
-        with (self.session_factory() as session):
-            result = session.execute(stmt.limit(pagination_dto.limit).offset(pagination_dto.offset)).scalars().all()
-            count_stmt = select(func.count()).select_from(stmt.subquery())
-            count = session.execute(count_stmt).scalar_one()
-            return result, count
+        result = self.session.execute(stmt.limit(pagination_dto.limit).offset(pagination_dto.offset)).scalars().all()
+        count_stmt = select(func.count()).select_from(stmt.subquery())
+        count = self.session.execute(count_stmt).scalar_one()
+        return result, count
 
     @staticmethod
     def add_order_by(stmt: Select, sorting_dto: SortingDTO) -> Select:

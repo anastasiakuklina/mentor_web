@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
-from .dto import TagCreateRepoDTO, TagUpdateRepoDTO, TagListItemDTO, TagDetailDTO, TagsFindDTO, TagsGetDTO
+from .dto import TagCreateRepoDTO, TagUpdateRepoDTO, TagListItemDTO, TagDetailDTO, TagsFindDTO, TagsGetDTO, \
+    PaginatedTagsDTO
 
 
 class IAdminTagRepository(ABC):
@@ -9,7 +10,7 @@ class IAdminTagRepository(ABC):
         pass
 
     @abstractmethod
-    def get_tags(self, dto: TagsGetDTO) -> list[TagListItemDTO]:
+    def get_tags(self, dto: TagsGetDTO) -> PaginatedTagsDTO:
         pass
 
     @abstractmethod
@@ -21,5 +22,5 @@ class IAdminTagRepository(ABC):
         pass
 
     @abstractmethod
-    def find_tags(self, dto: TagsFindDTO) -> list[TagListItemDTO]:
+    def find_tags(self, dto: TagsFindDTO) -> PaginatedTagsDTO:
         pass
