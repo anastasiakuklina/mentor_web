@@ -1,8 +1,0 @@
-alembic==1.14.0
-pydantic==2.10.2
-pydantic-settings==2.7.1
-result==0.17.0
-SQLAlchemy==2.0.36
-
-uvicorn~=0.34.0
-fastapi~=0.115.6
